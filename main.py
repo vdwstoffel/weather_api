@@ -4,7 +4,7 @@ from pixela_api import Pixela
 from database_data import Database
 from datetime import datetime
 
-credentials = Login("credentials.json")
+login = Login("credentials.json")
 owm = OpenWeatherMap()
 pixela = Pixela()
 db = Database("weather.sqlite", "weather_data")
@@ -15,7 +15,7 @@ db.create_database()
 db.create_table()
 
 # Load the credentials for openweathermap and pixela
-credentials = credentials.get_credentials()
+credentials = login.get_credentials()
 
 # Get the data from open weather map
 weather_data = owm.weather_data(credentials[0])
