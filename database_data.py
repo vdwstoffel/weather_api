@@ -27,6 +27,7 @@ class Database:
             pass
         else:
             conn.commit()
+        finally:
             conn.close()
 
     def record_data(self, date, rain, temp, sun):

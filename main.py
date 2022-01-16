@@ -16,17 +16,18 @@ db.create_table()
 
 # Load the credentials for openweathermap and pixela
 credentials = login.get_credentials()
+while credentials:
+    # Get the data from open weather map
+    weather_data = owm.weather_data(credentials[0])
 
-# Get the data from open weather map
-weather_data = owm.weather_data(credentials[0])
+    # Create the different datasets
+    rain = owm.rain(weather_data)
+    temp = owm.temperature(weather_data)
+    sun = owm.daily_sun(weather_data)
 
-# Create the different datasets
-rain = owm.rain(weather_data)
-temp = owm.temperature(weather_data)
-sun = owm.daily_sun(weather_data)
+    # Save data to database
+    db.record_data(today, rain, temp, sun)
 
-# Save data to database
-db.record_data(today, rain, temp, sun)
-
-# Post data to pixela
-pixela.post(credentials[1], credentials[2], rain, temp, sun, today)
+    # Post data to pixela
+    pixela.post(credentials[1], credentials[2], rain, temp, sun, today)
+    break

@@ -6,11 +6,15 @@ class Login:
         self.filename = filename
 
     def get_credentials(self):
-        with open(self.filename) as f:
-            data = json.load(f)
+        try:
+            with open(self.filename) as f:
+                data = json.load(f)
+        except FileNotFoundError:
+            print("Valid credentials file not found!")
+            return False
+        else:
+            owm_api = data["OWM_API"]
+            pixela_user = data["PIXELA_USER"]
+            pixela_token = data["PIXELA_TOKEN"]
 
-        owm_api = data["OWM_API"]
-        pixela_user = data["PIXELA_USER"]
-        pixela_token = data["PIXELA_TOKEN"]
-
-        return owm_api, pixela_user, pixela_token
+            return owm_api, pixela_user, pixela_token
