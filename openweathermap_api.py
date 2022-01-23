@@ -35,3 +35,11 @@ class OpenWeatherMap:
         sun_hours = sunset - sunrise
         # Convert Unix to float/Pixela does not supprot datetime so float will be used ie. 07:54 = 07.54
         return datetime.utcfromtimestamp(sun_hours).strftime("%H.%M")
+
+    def sunrise_sunset(self, data):
+        """Get the sunrise and sunset"""
+        # times in UNIX datetime, converted to normal time
+        sunrise = datetime.fromtimestamp(data["current"]["sunrise"])
+        sunset = datetime.fromtimestamp(data["current"]["sunset"])
+
+        return sunrise.strftime("%H:%M:%S"), sunset.strftime("%H:%M:%S")

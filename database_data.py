@@ -18,10 +18,12 @@ class Database:
         # Check to see if the table was already created
         try:
             cur.execute(f"""CREATE TABLE {self.table_name} (
-                            date text,
+                            date date,
                             rain_h float,
                             temp_c float,
-                            sun_h float
+                            sun_h float,
+                            sunrise time,
+                            sunset time
                             )""")
         except sqlite3.OperationalError:
             pass
@@ -30,15 +32,17 @@ class Database:
         finally:
             conn.close()
 
-    def record_data(self, date, rain, temp, sun):
+    def record_data(self, date, rain, temp, sun, sunrise, sunset):
         conn = sqlite3.connect(self.database_name)
         cur = conn.cursor()
-        cur.execute(f"INSERT INTO {self.table_name} VALUES(:date, :rain_h, :temp_c, :sun_h)",
+        cur.execute(f"INSERT INTO {self.table_name} VALUES(:date, :rain_h, :temp_c, :sun_h, :sunrise, :sunset)",
                     {
                         "date": date,
                         "rain_h": rain,
                         "temp_c": temp,
-                        "sun_h": sun
+                        "sun_h": sun,
+                        "sunrise": sunrise,
+                        "sunset": sunset
                     })
         conn.commit()
         conn.close()

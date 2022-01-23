@@ -2,13 +2,15 @@ from login_details import Login
 from openweathermap_api import OpenWeatherMap
 from pixela_api import Pixela
 from database_data import Database
+from email_manager import Email
 from datetime import datetime
 
 login = Login("credentials.json")
 owm = OpenWeatherMap()
 pixela = Pixela()
 db = Database("weather.sqlite", "weather_data")
-today = datetime.now().strftime("%Y%m%d")
+stoffel = Email("vdwstoffel@gmail.com")
+today = datetime.now().strftime("%Y/%m/%d")
 
 # Create database
 db.create_database()
@@ -16,7 +18,7 @@ db.create_table()
 
 # Load the credentials for openweathermap and pixela
 credentials = login.get_credentials()
-while credentials:
+if credentials:
     # Get the data from open weather map
     weather_data = owm.weather_data(credentials[0])
 
@@ -24,10 +26,14 @@ while credentials:
     rain = owm.rain(weather_data)
     temp = owm.temperature(weather_data)
     sun = owm.daily_sun(weather_data)
+    sun_times = owm.sunrise_sunset(weather_data)
 
     # Save data to database
-    db.record_data(today, rain, temp, sun)
+    db.record_data(today, rain, temp, sun, sun_times[0], sun_times[1])
 
     # Post data to pixela
     pixela.post(credentials[1], credentials[2], rain, temp, sun, today)
-    break
+
+    # send email to user
+    stoffel.send_email(credentials[3], credentials[4],
+                       today, sun_times[0], sun_times[1], temp, rain)

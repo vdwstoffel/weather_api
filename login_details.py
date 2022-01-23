@@ -16,5 +16,7 @@ class Login:
             owm_api = data["OWM_API"]
             pixela_user = data["PIXELA_USER"]
             pixela_token = data["PIXELA_TOKEN"]
+            email = data["SERVER_EMAIL"]
+            email_password = data["SERVER_EMAIL_PASSWORD"]
 
-            return owm_api, pixela_user, pixela_token
+            return owm_api, pixela_user, pixela_token, email, email_password
