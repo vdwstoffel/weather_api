@@ -21,5 +21,5 @@ class Email:
                                 f"Daily weather update for {date}\n"
                                 f"Sunrise: {sunrise}\n"
                                 f"Sunset: {sunset}\n"
-                                f"Average temperate: {temp}\n"
+                                f"Average temperature: {temp}\n"
                                 f"{rain}")
