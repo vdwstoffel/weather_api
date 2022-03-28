@@ -1,2 +1,4 @@
 credentials.json
 weather.sqlite
+__pycache__
+.idea
