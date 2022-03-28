@@ -3,11 +3,11 @@ from datetime import datetime
 
 
 class OpenWeatherMap:
-    def weather_data(self, owm_api):
+    def weather_data(self, owm_api, lat: str, lon: str):
         """API Call the get the weather data from OpenWeatherMap.org"""
         weather_parameters = {
-            "lat": "51.0543",
-            "lon": "3.7174",
+            "lat": lat,
+            "lon": lon,
             "appid": owm_api,
             "exclude": ["minutley", "daily"],
             "units": "metric"

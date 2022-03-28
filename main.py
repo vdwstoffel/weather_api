@@ -21,7 +21,7 @@ db.create_table()
 credentials = login.get_credentials()
 if credentials:
     # Get the data from open weather map
-    weather_data = owm.weather_data(credentials[0])
+    weather_data = owm.weather_data(credentials[0], "51.0543", "3.7174")
 
     # Create the different datasets
     rain = owm.rain(weather_data)
