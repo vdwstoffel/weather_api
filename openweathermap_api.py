@@ -25,7 +25,7 @@ class OpenWeatherMap:
 
     def temperature(self, data):
         """Get the average temperature for the day"""
-        return data["current"]["temp"]
+        return data["daily"][0]["temp"]["max"]
 
     def daily_sun(self, data):
         # times in UNIX datetime
